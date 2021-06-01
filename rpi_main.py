@@ -1,33 +1,34 @@
 from flask import Flask, request, Response, send_file
 import cv2
-import time, json, os
-'''   
 import pyrebase
 config = {
-    "apiKey": "AIzaSyAGvaBLvQAjJAMBLgZkRPYtkhBbgYnqaPU",
-    "authDomain": "finalbin-35e3c.firebaseapp.com",
-    "databaseURL": "https://finalbin-35e3c-default-rtdb.firebaseio.com",
-    "projectId": "finalbin-35e3c",
-    "storageBucket": "finalbin-35e3c.appspot.com",
-    "messagingSenderId": "887888512503",
-    "appId": "1:887888512503:web:b987d613ed083aee569af2",
-    "measurementId": "G-GX8J1JVNC5"}
+    "apiKey": "AIzaSyBUmN6mlS0IdM9cf5rghIyU_MyZ_vz8SKU",
+    "authDomain": "rpi-car-tracker.firebaseapp.com",
+    "databaseURL": "https://rpi-car-tracker-default-rtdb.firebaseio.com",
+    "projectId": "rpi-car-tracker",
+    "storageBucket": "rpi-car-tracker.appspot.com",
+    "messagingSenderId": "67371868058",
+    "appId": "1:67371868058:web:919cb18cee9eb0a85b2423",
+    "measurementId": "G-X2PC0NSXNV"
+}
 
 fire_base = pyrebase.initialize_app(config)
 auth = fire_base.auth()
 database = fire_base.database()
-'''
 
 
 # Major functions
 def get_gps():
     pass
 
-def update_gps_firebase():
+def update_gps_firebase(lat, long):
     pass
 
 def buzzer(state):
-    pass
+    if state == 1:
+        return "alarm turned on"
+    else:
+        return "alarm turned off"
 
 def capture_image():
     image = cv2.VideoCapture(0)
@@ -53,8 +54,7 @@ def capture():
 @app.route("/alarm", methods=['POST'])
 def alarm():
     state = request.args.get('alarm')
-    buzzer(int(state))
-    return "done"
+    return buzzer(int(state))
 
 
 
