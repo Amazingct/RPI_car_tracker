@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, send_file
 import cv2
-import pyrebase
+import pyrebase, time
+import threading as t
 config = {
     "apiKey": "AIzaSyBUmN6mlS0IdM9cf5rghIyU_MyZ_vz8SKU",
     "authDomain": "rpi-car-tracker.firebaseapp.com",
@@ -19,10 +20,14 @@ database = fire_base.database()
 
 # Major functions
 def get_gps():
-    pass
+    # get from module
+    return {"lat": 33.4, "long": -66.9}
 
-def update_gps_firebase(lat, long):
-    pass
+def update_gps_firebase():
+    print("Update started..")
+    while True:
+        database.child("gps").update(get_gps())
+        time.sleep(1)
 
 def buzzer(state):
     if state == 1:
@@ -42,9 +47,9 @@ def capture_image():
     cv2.destroyAllWindows()
 
 
+t.Thread(target=update_gps_firebase).start()
+
 app = Flask(__name__)
-
-
 @app.route("/capture", methods=['GET'])
 def capture():
     capture_image()
@@ -55,8 +60,6 @@ def capture():
 def alarm():
     state = request.args.get('alarm')
     return buzzer(int(state))
-
-
 
 
 @app.route("/")
