@@ -23,6 +23,18 @@ storage = firebase_storage.storage()
 
 
 # Major functions
+def capture_image():
+    image = cv2.VideoCapture(0)
+    result = True
+    while result:
+        ret, frame = image.read()
+        image_name = "data/images/snap.png"
+        cv2.imwrite(image_name, frame)
+        result = False
+    image.release()
+    cv2.destroyAllWindows()
+
+
 def get_gps():
     # get from module
     return {"lat": 33.4, "long": -66.9}
@@ -35,8 +47,10 @@ def update_gps_firebase():
         
 def update_image():
     while True:
-        storage.child("snap.png").put("snap.png")
-        time.sleep(5)
+        capture_image()
+        time.sleep(1)
+        storage.child("snap.png").put("data/images/snap.png")
+        time.sleep(4)
 
 def buzzer(state):
     if state == 1:
@@ -44,16 +58,6 @@ def buzzer(state):
     else:
         return "alarm turned off"
 
-def capture_image():
-    image = cv2.VideoCapture(0)
-    result = True
-    while result:
-        ret, frame = image.read()
-        image_name = "data/images/capture.jpg"
-        cv2.imwrite(image_name, frame)
-        result = False
-    image.release()
-    cv2.destroyAllWindows()
 
 
 t.Thread(target=update_gps_firebase).start()
