@@ -18,6 +18,8 @@ config = {
 fire_base = pyrebase.initialize_app(config)
 auth = fire_base.auth()
 database = fire_base.database()
+storage = firebase_storage.storage()
+
 
 
 # Major functions
@@ -30,6 +32,10 @@ def update_gps_firebase():
     while True:
         database.child("track").update(get_gps())
         time.sleep(1)
+        
+def update_image():
+    storage.child("snap.png").put("snap.png")
+    time.sleep(5)
 
 def buzzer(state):
     if state == 1:
