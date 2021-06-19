@@ -3,14 +3,15 @@ import cv2
 import pyrebase, time
 import threading as t
 config = {
-    "apiKey": "AIzaSyBUmN6mlS0IdM9cf5rghIyU_MyZ_vz8SKU",
-    "authDomain": "rpi-car-tracker.firebaseapp.com",
-    "databaseURL": "https://rpi-car-tracker-default-rtdb.firebaseio.com",
-    "projectId": "rpi-car-tracker",
-    "storageBucket": "rpi-car-tracker.appspot.com",
-    "messagingSenderId": "67371868058",
-    "appId": "1:67371868058:web:919cb18cee9eb0a85b2423",
-    "measurementId": "G-X2PC0NSXNV"
+    "apiKey": "AIzaSyC_DC3erAG6oaHt3v9YdBUEliLm-3nd7Ds",
+    "authDomain": "cartracker-f52df.firebaseapp.com",
+    "databaseURL": "https://cartracker-f52df-default-rtdb.firebaseio.com",
+    "projectId": "cartracker-f52df",
+    "storageBucket": "cartracker-f52df.appspot.com",
+    "messagingSenderId": "697426173079",
+    "appId": "1:697426173079:web:379fa3a26d436672f71dd2",
+    "measurementId": "G-L4H00531P4"
+
 }
 
 fire_base = pyrebase.initialize_app(config)
@@ -26,7 +27,7 @@ def get_gps():
 def update_gps_firebase():
     print("Update started..")
     while True:
-        database.child("gps").update(get_gps())
+        database.child("track").update(get_gps())
         time.sleep(1)
 
 def buzzer(state):
