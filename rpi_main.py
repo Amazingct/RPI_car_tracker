@@ -34,8 +34,9 @@ def update_gps_firebase():
         time.sleep(1)
         
 def update_image():
-    storage.child("snap.png").put("snap.png")
-    time.sleep(5)
+    while True:
+        storage.child("snap.png").put("snap.png")
+        time.sleep(5)
 
 def buzzer(state):
     if state == 1:
@@ -56,6 +57,7 @@ def capture_image():
 
 
 t.Thread(target=update_gps_firebase).start()
+t.Thread(target=update_image).start()
 
 app = Flask(__name__)
 @app.route("/capture", methods=['GET'])
