@@ -5,7 +5,30 @@ import threading as t
 import serial
 import time
 import pynmea2
+from vlc import MediaPlayer
+from twilio.rest import Client
 
+buzz = 19
+
+def send_sms(link):
+
+    account_sid = 'AC6bc78afd56470c418c040315901b6fd2'
+    auth_token = '36e9d7c90599a6462d88550f66754955'
+    number = "+2348051230116"
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+        messaging_service_sid='MGd6a377c071d5756ec3385a8f8c4aaddf',
+        body="Doorbell: Join meeting using link: {}".format(link),
+        to=number)
+
+try:
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(buzz, GPIO.OUT)
+
+except :
+    print("Error importing RPi.GPIO. This is probably because you need superuser. Try running again with 'sudo'.")
 
 port = "/dev/ttyAMA0"
 ser = serial.Serial(port, baudrate=9600, timeout=0.5)
@@ -43,8 +66,6 @@ def capture_image():
     print("image saved")
 
 
-
-
 def get_gps():
     dataout = pynmea2.NMEAStreamReader()
     newdata = ser.readline()
@@ -75,23 +96,22 @@ def update_image():
         print("image sent")
 
 def alarm(state):
-    pass
+    GPIO.output(buzz, state)
+    MediaPlayer("/home/pi/Desktop/RPI_car_tracker/sos.mp3").play()
 
 def sos():
-    pass
+    send_sms()
 
 def read_alarm_sos():
     while True:
         alarm_sos = database.child("track").get().val()
         alarm_sos = [alarm_sos["alarm"], alarm_sos["sos"]]
         print(alarm_sos)
-        alarm(alarm_sos["alarm"])
-        if alarm_sos["sos"] == 1:
+        alarm(int(alarm_sos["alarm"])) # switch alarm/buzzer
+        if int(alarm_sos["sos"])== 1:
             sos()
 
 
-
-
-#t.Thread(target=update_gps_firebase).start()
+t.Thread(target=update_gps_firebase).start()
 t.Thread(target=update_image).start()
-#t.Thread(target=read_alarm_sos).start()
+t.Thread(target=read_alarm_sos).start()
