@@ -19,7 +19,7 @@ def send_sms(link):
 
     message = client.messages.create(
         messaging_service_sid='MGd6a377c071d5756ec3385a8f8c4aaddf',
-        body="Doorbell: Join meeting using link: {}".format(link),
+        body="CAR SOS TRIGGERED, CORDINATES ARE: {}".format(str(get_gps())),
         to=number)
 
 try:
