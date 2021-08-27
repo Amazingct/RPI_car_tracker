@@ -42,7 +42,7 @@ config = {
     "messagingSenderId": "697426173079",
     "appId": "1:697426173079:web:379fa3a26d436672f71dd2",
     "measurementId": "G-L4H00531P4",
-    "serviceAccount":"service.json"
+    "serviceAccount":"/home/pi/RPI_car_tracker/service.json"
 }
 
 fire_base = pyrebase.initialize_app(config)
