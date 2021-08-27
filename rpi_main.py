@@ -93,7 +93,7 @@ def update_gps_firebase():
             if data["lat"] != 0 or data["long"] != 0:
                 database.child("track").update(data)
         except Exception as e:
-            print(e)
+            print("upade_gps:", e)
 
 def update_image():
     while True:
@@ -103,9 +103,11 @@ def update_image():
             storage.child("snap.png").put("/home/pi/RPI_car_tracker/data/images/snap.png")
             time.sleep(4)
             print("image sent")
+            time.sleep(15)
 
         except Exception as e:
-            print(e)
+            print("upadate_img:", e)
+
 
 
 def alarm(state):
@@ -123,10 +125,11 @@ def read_alarm_sos():
             alarm_sos = [alarm_sos["alarm"], alarm_sos["sos"]]
             print(alarm_sos)
             alarm(int(alarm_sos[0])) # switch alarm/buzzer
-            if int(alarm_sos[1])== 1:
+            if int(alarm_sos[1]) == 1:
                 sos()
         except Exception as e:
-            print(e)
+            print("read_alarm:", e)
+
 
 
 t.Thread(target=update_gps_firebase).start()
