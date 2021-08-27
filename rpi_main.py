@@ -8,7 +8,7 @@ import pynmea2
 from vlc import MediaPlayer
 from twilio.rest import Client
 
-buzz = 23
+buzz = 12
 
 def send_sms():
 
