@@ -10,7 +10,7 @@ from twilio.rest import Client
 
 buzz = 23
 
-def send_sms(link):
+def send_sms():
 
     account_sid = 'AC6bc78afd56470c418c040315901b6fd2'
     auth_token = '36e9d7c90599a6462d88550f66754955'
@@ -111,8 +111,8 @@ def read_alarm_sos():
         alarm_sos = database.child("track").get().val()
         alarm_sos = [alarm_sos["alarm"], alarm_sos["sos"]]
         print(alarm_sos)
-        alarm(int(alarm_sos["alarm"])) # switch alarm/buzzer
-        if int(alarm_sos["sos"])== 1:
+        alarm(int(alarm_sos[0])) # switch alarm/buzzer
+        if int(alarm_sos[1])== 1:
             sos()
 
 
