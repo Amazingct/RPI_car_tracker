@@ -62,7 +62,7 @@ def capture_image():
     result = True
     while result:
         ret, frame = image.read()
-        image_name = "data/images/snap.png"
+        image_name = "/home/pi/RPI_car_tracker/data/images/snap.png"
         cv2.imwrite(image_name, frame)
         result = False
     image.release()
@@ -95,7 +95,7 @@ def update_image():
     while True:
         capture_image()
         time.sleep(1)
-        storage.child("snap1.png").put("data/images/snap.png")
+        storage.child("snap1.png").put("/home/pi/RPI_car_tracker/data/images/snap.png")
         time.sleep(4)
         print("image sent")
 
