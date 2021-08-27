@@ -79,7 +79,6 @@ def get_gps():
         lat = newmsg.latitude
         lng = newmsg.longitude
         gps = {"lat": str(lat), "long": str(lng)}
-        print(gps)
         return gps
     else:
         return {"lat": str(0.0), "long": str(0.0)}
@@ -90,6 +89,7 @@ def update_gps_firebase():
     while True:
         try:
             data = get_gps()
+            print(data)
             if data["lat"] != "0.0" or data["long"] != "0.0":
                 database.child("track").update(data)
         except Exception as e:
