@@ -113,7 +113,7 @@ def update_image():
 def alarm(state):
     GPIO.output(buzz, state)
     if state == 1:
-        MediaPlayer("/home/pi/Desktop/RPI_car_tracker/sos.mp3").play()
+        MediaPlayer("/home/pi/RPI_car_tracker/sos.mp3").play()
 
 def sos():
     send_sms()
