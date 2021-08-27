@@ -82,7 +82,7 @@ def get_gps():
         print(gps)
         return gps
     else:
-        return {"lat": str(0), "long": str(0)}
+        return {"lat": str(0.0), "long": str(0.0)}
 
 
 def update_gps_firebase():
@@ -90,7 +90,7 @@ def update_gps_firebase():
     while True:
         try:
             data = get_gps()
-            if data["lat"] != 0 or data["long"] != 0:
+            if data["lat"] != "0.0" or data["long"] != "0.0":
                 database.child("track").update(data)
         except Exception as e:
             print("upada_gps:", e)
