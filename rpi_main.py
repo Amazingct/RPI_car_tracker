@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, send_file
+# AUTOUPADTED
 import cv2
 import pyrebase, time
 import threading as t
@@ -54,7 +54,11 @@ storage = fire_base.storage()
 # Major functions
 
 def capture_image():
-    image = cv2.VideoCapture(0)
+    try:
+        image = cv2.VideoCapture(0)
+    except:
+        image = cv2.VideoCapture(1)
+
     result = True
     while result:
         ret, frame = image.read()
