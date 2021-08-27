@@ -62,7 +62,7 @@ def capture_image():
     result = True
     while result:
         ret, frame = image.read()
-        image_name = "data/images/snap.jpeg"
+        image_name = "data/images/snap.png"
         cv2.imwrite(image_name, frame)
         result = False
     image.release()
