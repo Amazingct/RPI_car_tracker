@@ -100,7 +100,7 @@ def update_image():
         try:
             capture_image()
             time.sleep(1)
-            storage.child("snap1.png").put("/home/pi/RPI_car_tracker/data/images/snap.png")
+            storage.child("snap.png").put("/home/pi/RPI_car_tracker/data/images/snap.png")
             time.sleep(4)
             print("image sent")
 
