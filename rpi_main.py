@@ -12,13 +12,13 @@ buzz = 12
 
 def send_sms():
 
-    account_sid = 'AC6bc78afd56470c418c040315901b6fd2'
-    auth_token = '36e9d7c90599a6462d88550f66754955'
-    number = "+2348051230116"
+    account_sid = '*C7563713d93ca00e600fb7217e339686*'
+    auth_token = '**4a5b63640ba1dfd91942e07350cb**'
+    number = "+2348100125089"
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(
-        messaging_service_sid='MGd6a377c071d5756ec3385a8f8c4aaddf',
+        messaging_service_sid='MG12bbd25d1c0e4a48388bf6eb478e0012',
         body="CAR SOS TRIGGERED, CORDINATES ARE: {}".format(str(get_gps())),
         to=number)
 
