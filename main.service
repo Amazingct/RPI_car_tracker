@@ -1,0 +1,10 @@
+ [Unit]
+ Description=Tracker
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/usr/bin/python3 /home/pi/RPI_car_tracker/main.py
+
+ [Install]
+ WantedBy=multi-user.target
